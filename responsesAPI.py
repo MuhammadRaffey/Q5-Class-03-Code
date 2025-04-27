@@ -1,7 +1,7 @@
 import asyncio
 from openai import AsyncOpenAI
 from openai.types.responses import ResponseTextDeltaEvent
-from agents import Agent, OpenAIResponsesModel, Runner, set_tracing_disabled,RunConfig
+from agents import Agent, OpenAIResponsesModel, Runner, set_tracing_disabled,RunConfig,WebSearchTool
 from dotenv import load_dotenv,find_dotenv
 import os
 import chainlit as cl
@@ -13,7 +13,7 @@ if OPENAI_API_KEY is None:
     raise ValueError("OPENAI_API_KEY not found in environment variables.")
 
 BASE_URL = "https://api.openai.com/v1"
-MODEL = "gpt-4.1"
+MODEL = "gpt-4.1-mini"
 
 client = AsyncOpenAI(
     api_key=OPENAI_API_KEY,
@@ -32,7 +32,9 @@ config=RunConfig(
 teacher = Agent(
         name="Teaching Assistant",
         instructions="You are a teaching assistant. You are given a question and you need to answer it in a way that is easy to understand.",
-        
+        tools=[
+            WebSearchTool(),
+        ]
     )
 
 @cl.on_chat_start
