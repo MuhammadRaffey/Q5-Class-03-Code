@@ -1,7 +1,6 @@
-import asyncio
 from openai import AsyncOpenAI
 from openai.types.responses import ResponseTextDeltaEvent
-from agents import Agent, OpenAIResponsesModel, Runner, set_tracing_disabled,RunConfig,WebSearchTool
+from agents import Agent, OpenAIResponsesModel, Runner,RunConfig,WebSearchTool
 from dotenv import load_dotenv,find_dotenv
 import os
 import chainlit as cl
